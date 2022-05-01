@@ -1,0 +1,220 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+@model login.Models.ViewModel2
+
+
+    <!DOCTYPE html>
+    <html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>Search Flights</title>
+        <link rel="stylesheet" href="../Content/usersearch.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://kit.fontawesome.com/e4eecd86d3.js"></script>
+
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+        <!-- Google Fonts -->
+        <!-- Bootstrap core CSS -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Material Design Bootstrap -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+
+
+        <!-- JQuery -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <!-- Bootstrap tooltips -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+        <!-- Bootstrap core JavaScript -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+        <!-- MDB core JavaScript -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+
+        <script src="sorttable.js" type="text/javascript">
+
+        </script>
+
+    </head>
+    <body>
+        <section class="header">
+            <section id="nav-bar">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <a class="navbar-brand" href="#"><img class="img" src="~/Images/travel.png">Airline reservation system</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="navbarNav">
+                        <ul class="navbar-nav ml-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("homepage", "Home", new {Id_client= @Model.Clients.Id}))"><i class="fa fa-home" aria-hidden="true"></i>Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("Index", "Vols")"><i class="fa fa-plane" aria-hidden="true"></i>flight schedules</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#"><i class="fa fa-question-circle" aria-hidden="true"></i>about us</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("ticket", "Clients", new {Id_client= @Model.Clients.Id})"><i class="fas fa-receipt" aria-hidden="true"></i>Your Bookings</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="@Url.Action("LogOut", "Account")"><i class="fa fa-sign-out" aria-hidden="true"></i>Sign Out</a>
+                                
+
+                                
+
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </section>
+        </section>
+        <section id="box">
+            <div class="container text-center ">
+                <h1 class="py-4 bg-dark text-light "> <i class="fas fa-paper-plane" aria-hidden="true"></i> Search Flights</h1>
+                <section id="Alertmsg">
+                    <div class="alertmsg ">
+                        <div class="alert alert-info alert-dismissible fade show " role="alert">
+                            <strong>Hey User!</strong> Feel free to leave any input field(s) empty. Our server is User Friendly.
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    </div>
+                    <script type="text/javascript">
+                        $('.alert').alert()
+                    </script>
+                </section>
+                <div class="d-flex justify-content-center ">
+                    @using (Html.BeginForm("Index", "Vols", FormMethod.Get))
+                    {
+                    <div style="display:none">
+                        <input type="text" autocomplete="off" name="Id_Client" value=" @Model.Clients.Id" class="form-control" id="inlineFormInputGroup">
+                    </div>
+                        <div class="row">
+                            <div class="col">
+                                <div class="input-group mb-2 ">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text bg-warning"><i class="fas fa-plane-departure"></i></div>
+                                    </div>
+                                    <input type="text" autocomplete="off" name="q" placeholder="From" class="form-control" id="inlineFormInputGroup">
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="input-group mb-2 ">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text bg-warning"><i class="fas fa-plane-arrival" aria-hidden="true"></i></div>
+                                    </div>
+                                    <input type="text" autocomplete="off" name="l" placeholder="To" class="form-control" id="inlineFormInputGroup">
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!--     <div class="input-group mb-2  w-50 ">
+                        <div class="input-group-prepend ">
+                          <div class="input-group-text bg-warning  "><i class="fas fa-calendar-day" aria-hidden="true"></i></div>
+                        </div>
+                          <select class="custom-select" name="Day">
+                        <option selected disabled>Choose Your Day Of Travel</option>
+                        <option name="Day" value="1">Sunday</option>
+                        <option name="Day" value="2">Monday</option>
+                        <option name="Day" value="3">Tuesday</option>
+                        <option name="Day" value="4">Wednesday</option>
+                        <option name="Day" value="5">Thursday</option>
+                        <option name="Day" value="6">Friday</option>
+                        <option name="Day" value="7">Saturday</option>
+                    </select>
+                      </div> -->
+                        <div class="d-flex justify-content-center search">
+                            <button type="submit" class="btn btn-success w-50" name="Search" id="btnSubmit"><i class="fa fa-search" aria-hidden="true"></i><strong>Search</strong></button>
+                        </div>
+                    }
+                </div>
+                <!--                         <div class="modal fade" data-backdrop="false" keyboard="True" id="mymodal" tabindex="-1" role="dialog">
+                          <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title">Message</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                <div class="alert alert-danger" role="alert">
+                                  No such Flights are available. Try changing in the input fields.
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                      <div class="alert alert-warning" role="alert">
+                        No such Flights are available. Try changing in the input fields.
+                      </div>
+
+
+                      <div class="alert alert-warning" role="alert">
+
+                      </div> -->
+            </div>
+
+            <section id="table1">
+                <div class="table-responsive">
+                    <div class="d-flex table-data ">
+                        <table class="table sortable table-striped table-light table-hover">
+                            <thead class="thead-dark">
+                                <tr>
+                                    <th>Flight ID</th>
+                                    <th>Departure</th>
+                                    <th>Arrival</th>
+                                    <th>Prix</th>
+                                    <th>Departure Time</th>
+                                    <th>Arrival Time</th>
+                                    <th>Day</th>
+                                    <th>Book</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody">
+                                @foreach (var item in Model.Vols)
+                                {
+                                    <tr>
+                                        <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Depart)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Destination)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Prix)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Date_depart)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Date_arrive)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Time_arrive)</td>
+                                        <td>
+                                            <a href="@Url.Action("Index", "Reservation",new {Id_Vol=@Html.DisplayFor(modelItem => item.Id),Id_Client=@Model.Clients.Id })" class="btn btn-primary my-0 py-1 px-2">
+
+                                                <i class="fa fa-cart-arrow-down" aria-hidden="true"></i>
+
+                                            </a>
+                                        </td>
+
+                                    </tr>
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </section>
+
+        </section>
+
+    </body>
+</html>

@@ -1,0 +1,113 @@
+﻿
+@{
+    ViewBag.Title = "ticket";
+}
+
+@model login.Models.Class1
+
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Ticket Summary</title>
+    <link rel="stylesheet" href="../Content/ticket.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@500&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/e4eecd86d3.js"></script>
+    <script type="text/javascript">
+       function print_ticket(){
+         var prtContent = " ";
+         var no = document.getElementsByClassName("row").length - 1;
+         for(var i = 0; i < no; i++){
+          prtContent += document.getElementsByClassName("row")[i].innerHTML;
+         }
+         var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+         WinPrint.document.write(prtContent);
+         WinPrint.document.close();
+         WinPrint.focus();
+         WinPrint.print();
+         WinPrint.close();
+       }
+    </script>
+</head>
+<body>
+
+    <section class="header">
+        <section id="nav-bar">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="navbar-brand" href="#"><img class="img" src="~/Images/travel.png">Airline reservation system</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("homepage", "Home",new {Id_client=Model.Clients.Id})"><i class="fa fa-home" aria-hidden="true"></i>Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "Vols" ,new {Id_client=Model.Clients.Id})"><i class="fa fa-plane" aria-hidden="true"></i>flight schedules</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fa fa-question-circle" aria-hidden="true"></i>about us</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("LogOut", "Account")"><i class="fa fa-sign-out" aria-hidden="true"></i>Sign Out</a>
+
+
+
+
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </section>
+    </section>
+    <section id="container">
+        <div class="container text-center w-100">
+            <h1 class="py-4 m-0 bg-primary text-light "><i class="fas fa-receipt"></i> Your Bookings</h1>
+        </div>
+
+        <div class="text-center">
+            <div class="alert alert-primary" role="alert">
+                Have a happy journey!! Print your tickets
+                <a href="#" onclick="print_ticket()">Here.</a>
+            </div>
+        </div>
+
+        <div class="row" id="section-to-print">
+            @foreach (var item in Model.Vols)
+            {
+                <div class="col-md-6 text-center fname">
+                    <h1><i class="fas fa-plane-departure"></i></h1><br>
+                    <div class="cancel"> </div>
+
+                </div>
+                <div class="col-md-3 content ">
+                    <p class="lead"><strong>Passenger Name:   </strong>@Html.DisplayFor(modelItem => Model.Clients.Nom) @Html.DisplayFor(modelItem => Model.Clients.Prenom)</p>
+                    <p class="lead"><strong>Departure:   </strong>@Html.DisplayFor(modelItem => item.Depart)</p>
+                    <p class="lead"><strong>Arrival:     </strong>@Html.DisplayFor(modelItem => item.Destination)</p>
+                    <p class="lead"><strong>Departure time:     </strong>@Html.DisplayFor(modelItem => item.Time_depart)</p>
+                    <p class="lead"><strong>Departure date:     </strong>@Html.DisplayFor(modelItem => item.Date_arrive)</p>
+                </div>
+                <div class="col-md-3 content">
+                    <p class="lead"><strong>arrival time:     </strong>@Html.DisplayFor(modelItem => item.Time_arrive)</p>
+                    <p class="lead"><strong>arrival date:     </strong>@Html.DisplayFor(modelItem => item.Date_arrive)</p>
+
+                    <p class="lead"><strong>Price Paid:     </strong>@Html.DisplayFor(modelItem => item.Prix)</p>
+                    <p class="lead"><strong>Paid by:     </strong>@Html.DisplayFor(modelItem => Model.Clients.Nom) @Html.DisplayFor(modelItem => Model.Clients.Prenom)</p>
+                   
+                    <a class="btn btn-primary w-50" href="@Url.Action("Cancel", "Reservation", new {id_client=Model.Clients.Id,id_vol=item.Id})">Cancel</a>
+                </div>
+                
+            }
+        </div>
+       
+
+    </section>
+
+
+    </body>
+</html>

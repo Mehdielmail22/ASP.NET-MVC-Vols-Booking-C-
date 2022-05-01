@@ -1,0 +1,98 @@
+﻿
+
+@model login.Models.RegistrationViewModel
+@{
+    ViewBag.Title = "Register";
+}
+
+
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="../Content/signup.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <section id="nav-bar">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <a class="navbar-brand" href="homepage.php"><img class="img" src="~/Images/travel.png">Airline reservation system</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Home")"><i class="fa fa-home" aria-hidden="true"></i>Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Vols")"><i class="fa fa-plane" aria-hidden="true"></i>flight schedules</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="fa fa-question-circle" aria-hidden="true"></i>about us</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </section>
+    <section>
+        <div class="page-wrap">
+            <div class="left-panel h-100">
+                <div class="illustration">
+                    <img src="~/Images/regist.svg" alt="">
+                </div>
+            </div>
+            <div class="right-panel h-100">
+                <div class="animated-form">
+                    @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <h4>Create a new account.</h4>
+                        <hr />
+                        @Html.ValidationSummary("", new { @class = "text-danger" })
+                        <div class="form-group">
+                            <label for="name"><i class="fa fa-user" aria-hidden="true"></i>Nom</label>
+                            @Html.TextBoxFor(m => m.Nom, new { @class = "form-control" })
+                            
+                        </div>
+                        <div class="form-group">
+                            <label for="Username"><i class="fa fa-user-circle" aria-hidden="true"></i>Prenom</label>
+                            @Html.TextBoxFor(m => m.Prenom, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Email"><i class="fa fa-envelope" aria-hidden="true"></i>Email</label>
+                            @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Age"><i class="fa fa-calendar" aria-hidden="true"></i>Age</label>
+                            @Html.TextBoxFor(m => m.Age, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label for="ContactNo"><i class="fa fa-unlock-alt" aria-hidden="true"></i>Contact</label>
+                            @Html.TextBoxFor(m => m.ContactNo, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group">
+                            <label for="Password"><i class="fa fa-phone" aria-hidden="true"></i>Password</label>
+                            @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                        </div>
+                        <div class="form-group flex-end">
+                            <button type="submit" class="button" name="signup">Sign Up</button>
+                        </div>
+                        <div class="No-account">
+                            @Html.ActionLink("Have an account?Sign In", "Login")
+                            
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+</body>
+</html>

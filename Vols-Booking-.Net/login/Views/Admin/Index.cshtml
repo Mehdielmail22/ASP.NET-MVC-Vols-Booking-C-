@@ -1,0 +1,110 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+@model login.Models.ViewModel3
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Search Flights</title>
+    <link rel="stylesheet" href="../Content/usersearch.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/e4eecd86d3.js"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+    <!-- Google Fonts -->
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/css/mdb.min.css" rel="stylesheet">
+
+
+    <!-- JQuery -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.4/umd/popper.min.js"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.19.1/js/mdb.min.js"></script>
+
+    <script src="sorttable.js" type="text/javascript">
+
+    </script>
+
+</head>
+<body>
+    <section class="header">
+        <section id="nav-bar">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="navbar-brand" href="#"><img class="img" src="~/Images/travel.png">Airline reservation system</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Create", "Vols")"><i class="fa fa-home" aria-hidden="true"></i>Add Vol</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "Admin")"><i class="fa fa-plane" aria-hidden="true"></i>List Of Vol</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("LogOut", "Admin")"><i class="fa fa-sign-out" aria-hidden="true"></i>Sign Out</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </section>
+    </section>
+
+    <section id="table1">
+        <div class="table-responsive">
+            <div class="d-flex table-data ">
+                <table class="table sortable table-striped table-light table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Flight ID</th>
+                            <th>Departure</th>
+                            <th>Arrival</th>
+                            <th>Prix</th>
+                            <th>Departure Time</th>
+                            <th>Arrival Time</th>
+                            <th>Day</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody">
+                        @foreach (var item in Model.Vols)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.Id)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Depart)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Destination)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Prix)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Date_depart)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Date_arrive)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Date_arrive)</td>
+                                <td>
+                                    
+                                    <a href="@Url.Action("Delete", "Admin",new { Id_Vol = @Html.DisplayFor(modelItem => item.Id) })" class="btn btn-primary my-0 py-1 px-2">
+                                    Delete
+                                    </a>
+</td>
+
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </section>
+    </body>

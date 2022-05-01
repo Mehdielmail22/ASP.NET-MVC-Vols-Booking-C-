@@ -1,0 +1,93 @@
+﻿
+@using login.Models
+
+@model login.Models.ViewModel
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="utf-8">
+    <title>Booking Portal</title>
+    <link rel="stylesheet" href="../Content/pbooking.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://kit.fontawesome.com/e4eecd86d3.js"></script>
+</head>
+<body>
+    <section class="header">
+        <section id="nav-bar">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <a class="navbar-brand" href="#"><img class="img" src="~/Images/travel.png">Airline reservation system</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("homepage", "Home")"><i class="fa fa-home" aria-hidden="true"></i>Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Index", "Vols")"><i class="fa fa-plane" aria-hidden="true"></i>flight schedules</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="fa fa-question-circle" aria-hidden="true"></i>about us</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("ticket", "Clients", new {Id_client= @Model.Clients.Id})"><i class="fas fa-receipt" aria-hidden="true"></i>Your Bookings</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("LogOut", "Account")"><i class="fa fa-sign-out" aria-hidden="true"></i>Sign Out</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </section>
+    </section>
+
+    <section id="container">
+        <div class="container text-center w-100">
+            <h1 class="py-4 m-0 bg-primary text-light "><i class="fas fa-shopping-cart"></i> Booking Portal</h1>
+        </div>
+        <div class="row">
+            <div class="col-md-6 text-center fname">
+                <h1><i class="fas fa-plane-departure"></i></h1>
+            </div>
+            <div class="col-md-3 content ">
+                <p class="lead"><strong>From:     </strong>@Model.Vols.Depart</p>
+                <p class="lead"><strong>To:     </strong>@Model.Vols.Destination</p>
+                <p class="lead"><strong>Departure time:     </strong>@Model.Vols.Time_depart</p>
+                <p class="lead"><strong>Arrival time:     </strong>@Model.Vols.Time_arrive</p>
+            </div>
+            <div class="col-md-3 content">
+                <p class="lead"><strong>Departure date:     </strong>@Model.Vols.Date_depart</p>
+                <p class="lead"><strong>Arrival date:     </strong>@Model.Vols.Destination</p>
+                <p class="lead"><strong>Place n:     </strong>@Model.Vols.Nbr_max</p>
+                <p class="lead"><strong>Starting Price:     </strong><strong>@Model.Vols.Prix</strong></p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="pform">
+
+        <div class=" text-center seatbtn">
+            @Html.ActionLink("Choose payment", "Choosepayment", new { prix = @Model.Vols.Prix, Id_Vol = @Model.Vols.Id, Id_Client = Model.Clients.Id }, new {@class= "btn btn-success" })
+            
+        </div>
+
+
+
+
+    </section>
+
+</body>
+</html>
